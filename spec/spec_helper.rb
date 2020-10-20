@@ -1,5 +1,8 @@
 require "bundler/setup"
-require "tartarus/rb"
+require "tartarus"
+require "rspec-sidekiq"
+
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,3 +15,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+RSpec::Matchers.define_negated_matcher :avoid_changing, :change

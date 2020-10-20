@@ -1,0 +1,2 @@
+module Tartarus::Sidekiq
+end
