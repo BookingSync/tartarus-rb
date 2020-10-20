@@ -37,14 +37,14 @@ if File.exist?(schedule_file) && Sidekiq.server?
   tartarus = Tartarus.new
 
   tartarus.register do |item|
-    item.model = ModelThatYouWantToArchive # required
-    item.cron = "5 4 * * *" # cron syntax, required
-    item.queue = "default" # name of the sidekiq queue you want to use for execution of the jobs, required
-    item.tenants_range = -> { Account.active } # optional, it you want to scope items by a tenant (or any field that can be used for partitioning). It doesn't have to be ActiveRecord collection, could be just an array
-    item.tenant_value_source = :uuid # optional but required if you want to have scoping by tenant. Specifying :uuid here means that ModelThatYouWantToArchive collection will be scheduled for archiving by uuid of the Account. It defaults to `id`.
-    item.tenant_id_field = :account_uuid # required when using tenant_value_source/tenant_value_source. It's a DB column that will be used for scoping records by a tenant. For example, here it would be: ModelThatYouWantToArchive.where(account_uuid: value_of_uuid_from_some_active_account)
-    item.archive_items_older_than = -> { 30.days.ago } # required, for defining retention policy
-    item.timestamp_field = :created_at # required, used for performing a query using the value from `archive_items_older_than`
+    item.model = ModelThatYouWantToArchive
+    item.cron = "5 4 * * *"
+    item.queue = "default"
+    item.tenants_range = -> { Account.active }
+    item.tenant_value_source = :uuid
+    item.tenant_id_field = :account_uuid
+    item.archive_items_older_than = -> { 30.days.ago }
+    item.timestamp_field = :created_at
   end
 
   tartarus.register do |item|
@@ -65,10 +65,20 @@ if File.exist?(schedule_file) && Sidekiq.server?
     item.archive_items_older_than = -> { 1.week.ago }
   end
 
-  tartarus.schedule #  this method must be called to createjobs for sidekiq-cron!
+  tartarus.schedule #  this method must be called to create jobs for sidekiq-cron!
 end
 ```
 
+
+You can use the following config params:
+- `model` - a name of the ActiveReord model you want to archive, required
+- `cron` - cron syntax, required
+- `queue` - name of the sidekiq queue you want to use for execution of the jobs, required
+- `tenants_range` - optional, use if you want to scope items by a tenant (or any field that can be used for partitioning). It doesn't have to be ActiveRecord collection, could be just an array. Must be a proc/lambda/object responding to `call` method. For ActvieRecord collection, `find_each` loop will be used for optimization.
+- `tenant_value_source` - optional but required if you want to have scoping by tenant/partitioning field. Specifying `:uuid` here means that ModelThatYouWantToArchive collection will be scheduled for archiving by uuid of each Account. It defaults to `id`.
+- `tenant_id_field` - required when using tenant_value_source/tenant_value_source. It's a DB column that will be used for scoping records by a tenant. For example, here it would be: `ModelThatYouWantToArchive.where(account_uuid: value_of_uuid_from_some_active_account)`
+- `archive_items_older_than` - required, for defining retention policy
+- `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
 
 ## Development
 

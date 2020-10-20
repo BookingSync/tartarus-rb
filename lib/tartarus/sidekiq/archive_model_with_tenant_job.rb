@@ -1,9 +1,11 @@
 require "sidekiq"
 
-class Tartarus::Sidekiq::ArchiveModelWithTenantJob
-  include ::Sidekiq::Worker
+class Tartarus
+  class Sidekiq::ArchiveModelWithTenantJob
+    include ::Sidekiq::Worker
 
-  def perform(model_name, tenant_id)
-    Tartarus::ArchiveModelWithTenant.new.archive(model_name, tenant_id)
+    def perform(model_name, tenant_id)
+      Tartarus::ArchiveModelWithTenant.new.archive(model_name, tenant_id)
+    end
   end
 end

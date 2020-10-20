@@ -1,1 +1,1 @@
-require "tartarus"
+require_relative "../tartarus.rb"

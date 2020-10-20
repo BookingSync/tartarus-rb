@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "tartarus"
+require "tartarus-rb"
 require "rspec-sidekiq"
 
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
