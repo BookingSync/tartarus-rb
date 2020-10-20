@@ -6,8 +6,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Karol Galanciak"]
   spec.email         = ["karol.galanciak@gmail.com"]
 
-  spec.summary       = %q{A gem for archving (deleting) old records  you no longer need. Send them straight to tartarus!}
-  spec.description   = %q{A gem for archving (deleting) old records  you no longer need. Send them straight to tartarus!}
+  spec.summary       = %q{A gem for archving (deleting) old records you no longer need. Send them straight to tartarus!}
+  spec.description   = %q{A gem for archving (deleting) old records you no longer need. Send them straight to tartarus!}
   spec.homepage      = "https://github.com/BookingSync/tartarus-rb"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
