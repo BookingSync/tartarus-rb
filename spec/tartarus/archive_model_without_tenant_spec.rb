@@ -31,6 +31,22 @@ RSpec.describe Tartarus::ArchiveModelWithoutTenant do
         def deleted?
           @deleted
         end
+
+        def primary_key
+          "id"
+        end
+
+        def select(*)
+          self
+        end
+
+        def find_in_batches
+          yield self
+        end
+
+        def where(*)
+          self
+        end
       end.new
     end
     let(:archivable_item) do
