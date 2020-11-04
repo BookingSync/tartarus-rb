@@ -2,10 +2,8 @@ class Tartarus
   class ArchiveStrategy
     class DestroyAll
       def call(collection)
-        primary_key = collection.primary_key
-
-        collection.select(primary_key).find_in_batches do |group|
-          collection.where(primary_key => group).destroy_all
+        Tartarus::ArchiveStrategy::ExtractBatch.new.call(collection) do |batch|
+          batch.destroy_all
         end
       end
     end
