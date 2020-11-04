@@ -80,6 +80,14 @@ You can use the following config params:
 - `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
 - `archive_with` - optional (defaults to `delete_all`). Could be `delete_all`, `destroy_all`, `delete_all_without_batches`, `destroy_all_without_batches`
 
+### Testing before actually using it
+
+You might want to verify that the gem works in the way you expect it to work. For that, you will be mostly interested in 2 usecases:
+
+1. scheduling/enqueueing: use `Tartarus::ScheduleArchivingModel#schedule` - for example, `Tartarus::ScheduleArchivingModel.new.schedule("PaperTrailVersion")`, it's going to enqueue either `Tartarus::Sidekiq::ArchiveModelWithTenantJob` or `Tartarus::Sidekiq::ArchiveModelWithoutTenantJob`, depending on the config.
+2. execution of the archiving logic: use `Tartarus::ArchiveModelWithTenant#archive` (for example, `Tartarus::ArchiveModelWithTenant.new.archive("PaperTrailVersion", "User")`) or `Tartarus::ArchiveModelWithoutTenant#archive` (for example, `Tartarus::ArchiveModelWithoutTenant.new.archive("PaperTrailVersion")`)
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
