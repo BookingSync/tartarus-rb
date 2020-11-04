@@ -43,6 +43,7 @@ if File.exist?(schedule_file) && Sidekiq.server?
     item.tenant_id_field = :account_uuid
     item.archive_items_older_than = -> { 30.days.ago }
     item.timestamp_field = :created_at
+    item.archive_with = :destroy_all
   end
 
   tartarus.register do |item|
@@ -77,6 +78,7 @@ You can use the following config params:
 - `tenant_id_field` - required when using tenant_value_source/tenant_value_source. It's a DB column that will be used for scoping records by a tenant. For example, here it would be: `ModelThatYouWantToArchive.where(account_uuid: value_of_uuid_from_some_active_account)`
 - `archive_items_older_than` - required, for defining retention policy
 - `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
+- `archive_with` - optional (defaults to `delete_all`). Could be `delete_all`, `destroy_all`, `delete_all_without_batches`, `destroy_all_without_batches`
 
 ## Development
 

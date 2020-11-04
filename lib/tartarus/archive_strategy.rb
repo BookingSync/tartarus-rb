@@ -5,6 +5,10 @@ class Tartarus::ArchiveStrategy
       Tartarus::ArchiveStrategy::DeleteAll.new
     when :destroy_all
       Tartarus::ArchiveStrategy::DestroyAll.new
+    when :delete_all_without_batches
+      Tartarus::ArchiveStrategy::DeleteAllWithoutBatches.new
+    when :destroy_all_without_batches
+      Tartarus::ArchiveStrategy::DestroyAllWithoutBatches.new
     else
       raise "unknown strategy: #{strategy_name}"
     end
