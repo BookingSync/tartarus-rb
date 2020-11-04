@@ -3,15 +3,27 @@ RSpec.describe Tartarus::ArchiveStrategy do
     subject(:for) { described_class.new.for(strategy_name) }
 
     context "when strategy_name is 'delete_all'" do
-      let(:strategy_name) { "delete_all" }
+      let(:strategy_name) { :delete_all }
 
       it { is_expected.to be_a Tartarus::ArchiveStrategy::DeleteAll }
+    end
+
+    context "when strategy_name is 'delete_all_without_batches'" do
+      let(:strategy_name) { "delete_all_without_batches" }
+
+      it { is_expected.to be_a Tartarus::ArchiveStrategy::DeleteAllWithoutBatches }
     end
 
     context "when strategy_name is 'destroy_all'" do
       let(:strategy_name) { "destroy_all" }
 
       it { is_expected.to be_a Tartarus::ArchiveStrategy::DestroyAll }
+    end
+
+    context "when strategy_name is 'destroy_all_without_batches'" do
+      let(:strategy_name) { :destroy_all_without_batches }
+
+      it { is_expected.to be_a Tartarus::ArchiveStrategy::DestroyAllWithoutBatches }
     end
 
     context "when strategy_name is something else" do

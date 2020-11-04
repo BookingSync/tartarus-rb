@@ -2,7 +2,9 @@ class Tartarus
   class ArchiveStrategy
     class DeleteAll
       def call(collection)
-        collection.delete_all
+        Tartarus::ArchiveStrategy::ExtractBatch.new.call(collection) do |batch|
+          batch.delete_all
+        end
       end
     end
   end

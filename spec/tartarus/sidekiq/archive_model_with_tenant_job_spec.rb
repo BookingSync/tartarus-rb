@@ -10,7 +10,8 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
     let(:expected_where_statements) do
       [
         ["created_at < ?", Date.today],
-        [{ tenant_id: 1 }]
+        [{ tenant_id: 1 }],
+        [{ "id" => ModelNameForTestingArchiveModelWithTenantJob }]
       ]
     end
 
@@ -37,6 +38,7 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
         perform
       }.to change { ModelNameForTestingArchiveModelWithTenantJob.where_statements }.from([]).to(expected_where_statements)
       .and change { ModelNameForTestingArchiveModelWithTenantJob.deleted? }.from(nil).to(true)
+      .and change { ModelNameForTestingArchiveModelWithTenantJob.select_value }.from(nil).to("id")
     end
   end
 
@@ -49,9 +51,26 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
       @where_statements ||= []
     end
 
+    def self.select_value
+      @select_value
+    end
+
     def self.where(*args)
       where_statements << [*args]
       self
+    end
+
+    def self.primary_key
+      "id"
+    end
+
+    def self.select(field)
+      @select_value = field
+      self
+    end
+
+    def self.find_in_batches
+      yield self
     end
 
     def self.delete_all

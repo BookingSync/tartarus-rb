@@ -33,4 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec-sidekiq"
+
+  spec.add_development_dependency "activerecord", "~> 6"
+  spec.add_development_dependency "sqlite3"
 end
