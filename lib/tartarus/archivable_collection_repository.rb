@@ -25,7 +25,7 @@ class Tartarus
     private
 
     def collection_for(model_name)
-      const_resolver.const_get(model_name)
+      const_resolver.const_get(model_name.to_s)
     end
 
     def ensure_column_exists(collection, model_name, column)

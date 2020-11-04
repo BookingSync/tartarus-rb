@@ -24,9 +24,7 @@ class Tartarus::ScheduleArchivingModel
     collection = archivable_item.tenants_range.call
 
     if collection.respond_to?(:find_each)
-      archivable_item.tenants_range
-        .call
-        .find_each { |element| yield element.public_send(archivable_item.tenant_value_source) }
+      collection.find_each { |element| yield element.public_send(archivable_item.tenant_value_source) }
     else
       collection.each { |element| yield element }
     end

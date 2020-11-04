@@ -88,6 +88,8 @@ You might want to verify that the gem works in the way you expect it to work. Fo
 2. execution of the archiving logic: use `Tartarus::ArchiveModelWithTenant#archive` (for example, `Tartarus::ArchiveModelWithTenant.new.archive("PaperTrailVersion", "User")`) or `Tartarus::ArchiveModelWithoutTenant#archive` (for example, `Tartarus::ArchiveModelWithoutTenant.new.archive("PaperTrailVersion")`)
 
 
+You might also want to check `spec/integration` to get an idea how the integration tests were written.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
