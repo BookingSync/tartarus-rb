@@ -60,7 +60,7 @@ class Tartarus::ArchivableItem
   end
 
   def archive_strategy(factory: Tartarus::ArchiveStrategy.new)
-    factory.for(archive_with, batch_size)
+    factory.for(archive_with, batch_size: batch_size)
   end
 
   def for_model?(provided_model_name)

@@ -1,6 +1,6 @@
 RSpec.describe Tartarus::ArchiveStrategy do
   describe "#for" do
-    subject(:for) { described_class.new.for(strategy_name, 100) }
+    subject(:for) { described_class.new.for(strategy_name, batch_size: 100) }
 
     context "when strategy_name is 'delete_all'" do
       let(:strategy_name) { :delete_all }

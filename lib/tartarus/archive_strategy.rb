@@ -1,5 +1,5 @@
 class Tartarus::ArchiveStrategy
-  def for(strategy_name, batch_size)
+  def for(strategy_name, batch_size: 0)
     case strategy_name.to_sym
     when :delete_all
       Tartarus::ArchiveStrategy::DeleteAll.new
