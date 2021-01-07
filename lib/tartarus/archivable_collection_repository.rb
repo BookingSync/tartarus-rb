@@ -13,6 +13,7 @@ class Tartarus
       ensure_column_exists(collection, model_name, tenant_id_field)
 
       collection.where("#{timestamp_field} < ?", timestamp).where(tenant_id_field => tenant_id)
+                .order(tenant_id_field, timestamp_field)
     end
 
     def items_older_than(model_name, timestamp_field, timestamp)

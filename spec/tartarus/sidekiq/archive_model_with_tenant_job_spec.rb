@@ -14,6 +14,12 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
         [{ "id" => ModelNameForTestingArchiveModelWithTenantJob }]
       ]
     end
+    let(:expected_order) do
+      [
+        :tenant_id,
+        :created_at
+      ]
+    end
 
     around do |example|
       tartarus.register do |item|
@@ -37,6 +43,7 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
       expect {
         perform
       }.to change { ModelNameForTestingArchiveModelWithTenantJob.where_statements }.from([]).to(expected_where_statements)
+      .and change { ModelNameForTestingArchiveModelWithTenantJob.order_by }.from([]).to(expected_order)
       .and change { ModelNameForTestingArchiveModelWithTenantJob.deleted? }.from(nil).to(true)
       .and change { ModelNameForTestingArchiveModelWithTenantJob.select_value }.from(nil).to("id")
     end
@@ -51,12 +58,21 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithTenantJob do
       @where_statements ||= []
     end
 
+    def self.order_by
+      @order_by ||= []
+    end
+
     def self.select_value
       @select_value
     end
 
     def self.where(*args)
       where_statements << [*args]
+      self
+    end
+
+    def self.order(*args)
+      @order_by = [*args]
       self
     end
 
