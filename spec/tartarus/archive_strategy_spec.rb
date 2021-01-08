@@ -1,6 +1,6 @@
 RSpec.describe Tartarus::ArchiveStrategy do
   describe "#for" do
-    subject(:for) { described_class.new.for(strategy_name) }
+    subject(:for) { described_class.new.for(strategy_name, batch_size: 100) }
 
     context "when strategy_name is 'delete_all'" do
       let(:strategy_name) { :delete_all }
@@ -24,6 +24,12 @@ RSpec.describe Tartarus::ArchiveStrategy do
       let(:strategy_name) { :destroy_all_without_batches }
 
       it { is_expected.to be_a Tartarus::ArchiveStrategy::DestroyAllWithoutBatches }
+    end
+
+    context "when strategy_name is 'delete_all_using_limit_in_batches'" do
+      let(:strategy_name) { :delete_all_using_limit_in_batches }
+
+      it { is_expected.to be_a Tartarus::ArchiveStrategy::DeleteAllUsingLimitInBatches }
     end
 
     context "when strategy_name is something else" do

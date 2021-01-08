@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tartarus-rb (0.2.0)
+    tartarus-rb (0.3.0)
       sidekiq (>= 5)
       sidekiq-cron (~> 1)
 
@@ -24,7 +24,7 @@ GEM
     diff-lcs (1.4.4)
     et-orbi (1.2.4)
       tzinfo
-    fugit (1.4.0)
+    fugit (1.4.1)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     i18n (1.8.5)

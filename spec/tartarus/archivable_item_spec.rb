@@ -195,6 +195,22 @@ RSpec.describe Tartarus::ArchivableItem do
         it { is_expected.to eq :destroy_all }
       end
     end
+
+    describe "batch_size" do
+      subject(:batch_size) { archivable_item.batch_size }
+
+      context "when the attribute is not set" do
+        it { is_expected.to eq 10_000 }
+      end
+
+      context "when the attribute is set" do
+        before do
+          archivable_item.batch_size = 100
+        end
+
+        it { is_expected.to eq 100 }
+      end
+    end
   end
 
   describe "#validate!" do
