@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Add `delete_all_using_limit_in_batches` strategy
+
 ## 0.2.0
 - Add support for deleting and destroying in batches
 - Add integration tests with a real database and ActiveRecord

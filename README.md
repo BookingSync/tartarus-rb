@@ -79,7 +79,7 @@ You can use the following config params:
 - `archive_items_older_than` - required, for defining retention policy
 - `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
 - `archive_with` - optional (defaults to `delete_all`). Could be `delete_all`, `destroy_all`, `delete_all_without_batches`, `destroy_all_without_batches`, `delete_all_using_limit_in_batches`
-- `batch_size` - optional (defaults to `10_000`)
+- `batch_size` - optional (defaults to `10_000`, used with `delete_all_using_limit_in_batches` strategy)
 
 ### Testing before actually using it
 
