@@ -3,6 +3,11 @@ language: ruby
 cache: bundler
 rvm:
   - 2.7.2
+env:
+  - AWS_KEY=AWS_KEY
+  - AWS_SECRET=AWS_SECRET
+  - AWS_REGION=AWS_REGION
+  - VAULT_NAME=VAULT_NAME
 before_install: gem install bundler -v 2.1.4
 services:
   - redis-server
