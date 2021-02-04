@@ -51,9 +51,9 @@ RSpec.configure do |config|
   end
 
   database.create_table(:archive_registries) do |t|
-    t.string :glacier_location, null: false
-    t.string :glacier_checksum, null: false
-    t.string :glacier_archive_id, null: false
+    t.text :glacier_location, null: false
+    t.text :glacier_checksum, null: false
+    t.text :glacier_archive_id, null: false
     t.string :archivable_model, null: false
     t.string :tenant_id_field
     t.string :tenant_id
