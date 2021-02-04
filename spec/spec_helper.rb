@@ -31,7 +31,7 @@ RSpec.configure do |config|
   ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
   begin
     database = ActiveRecord::Base.connection
-  rescue ActiveRecord::NoDatabaseErrorGlacier_Upload_without_tenant_success
+  rescue ActiveRecord::NoDatabaseError
     ActiveRecord::Base.establish_connection(adapter: "postgresql").connection.create_database(database_name)
     ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
     database = ActiveRecord::Base.connection
