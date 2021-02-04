@@ -104,7 +104,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
           "completed_at" => Time.now,
           "glacier_archive_id" => "BIFhTIYTIVJ8bRgQ3ZLhGh9RNJdR8TQbKUKKh56Dn1EuAf3QFxBnFUyczJ9gfqq2IcFMnQOH9bX_I_IGetM49cmcWisUp6p9Heso3pGzzghVuF3aFIXdsNRSTFZ1dc3Hff_-FYPmpg",
           "glacier_checksum" => "965c1ae80ca029483f4139126588d3fb73e5448a6f86e8c952793e7e92bb2616",
-          "glacier_location" => "/441911171826/vaults/test-tartarus/archives/BIFhTIYTIVJ8bRgQ3ZLhGh9RNJdR8TQbKUKKh56Dn1EuAf3QFxBnFUyczJ9gfqq2IcFMnQOH9bX_I_IGetM49cmcWisUp6p9Heso3pGzzghVuF3aFIXdsNRSTFZ1dc3Hff_-FYPmpg",
+          "glacier_location" => "/441911171826/vaults/#{vault_name}/archives/BIFhTIYTIVJ8bRgQ3ZLhGh9RNJdR8TQbKUKKh56Dn1EuAf3QFxBnFUyczJ9gfqq2IcFMnQOH9bX_I_IGetM49cmcWisUp6p9Heso3pGzzghVuF3aFIXdsNRSTFZ1dc3Hff_-FYPmpg",
           "tenant_id" => "Partition_1",
           "tenant_id_field" => "partition_name"
         )
@@ -215,7 +215,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
           "completed_at" => Time.now,
           "glacier_archive_id" => "Iy66HBY14A7Or6bdKql6gtN21SUJ1uHLmsaTosQjmDsKuslMBmFmukQIQ0xRwHeGkqGXAzcU04-9GhQVyBpRB0bSJ1jQ0XetlJgvhf5IZ-IVpkR0JKfcOyb-QgYdq67XzWp_Iax5Lw",
           "glacier_checksum" => "3f64e797a2c52fb6f8c706efedbfa9b269809fdbdd38b8f05f0989f7c8f53124",
-          "glacier_location" => "/441911171826/vaults/test-tartarus/archives/Iy66HBY14A7Or6bdKql6gtN21SUJ1uHLmsaTosQjmDsKuslMBmFmukQIQ0xRwHeGkqGXAzcU04-9GhQVyBpRB0bSJ1jQ0XetlJgvhf5IZ-IVpkR0JKfcOyb-QgYdq67XzWp_Iax5Lw",
+          "glacier_location" => "/441911171826/vaults/#{vault_name}/archives/Iy66HBY14A7Or6bdKql6gtN21SUJ1uHLmsaTosQjmDsKuslMBmFmukQIQ0xRwHeGkqGXAzcU04-9GhQVyBpRB0bSJ1jQ0XetlJgvhf5IZ-IVpkR0JKfcOyb-QgYdq67XzWp_Iax5Lw",
           "tenant_id" => nil,
           "tenant_id_field" => nil
         )
