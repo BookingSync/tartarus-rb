@@ -34,9 +34,9 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part) { "#{User.minimum(:id) - 1};2020-01-01 11:00:00;Partition_1" } # first 100 records were deleted, so we need the last previous ID
+    let(:csv_body_part) { ";2020-01-01 11:00:00;Partition_1" }
     let(:created_archive_registry) { ArchiveRegistry.last }
-    let(:expected_numbers_of_rows_in_csv_file) { 1 + 100 } # headers + deleted dows
+    let(:expected_numbers_of_rows_in_csv_file) { 1 + 100 } # headers + deleted rows
 
     before do
       registry.register(archivable_item)
@@ -88,8 +88,8 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
           archive
 
           assert_requested(:post, "https://glacier.#{aws_region}.amazonaws.com/-/vaults/#{vault_name}/archives") do |req|
-            rows = req.body.split("\n").count
-            req.body.include?(csv_headers) && req.body.include?(csv_body_part) &&  rows == expected_numbers_of_rows_in_csv_file
+            rows_count = req.body.split("\n").count
+            req.body.include?(csv_headers) && req.body.include?(csv_body_part) && rows_count == expected_numbers_of_rows_in_csv_file
           end
         end
       end
@@ -112,7 +112,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
     end
   end
 
-  context "with tenant" do
+  context "without tenant" do
     subject(:archive) do
       Tartarus::ArchiveModelWithoutTenant.new(registry: registry).archive(User)
     end
@@ -145,9 +145,9 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part) { "#{User.maximum(:id) - 41};2020-01-01 11:00:00;Partition_2" } # first 150 records were deleted, so we need the last previous ID
+    let(:csv_body_part) { "2020-01-01 11:00:00;Partition_2" }
     let(:created_archive_registry) { ArchiveRegistry.last }
-    let(:expected_numbers_of_rows_in_csv_file) { 1 + 150 } # headers + deleted dows
+    let(:expected_numbers_of_rows_in_csv_file) { 1 + 150 } # headers + deleted rows
 
     before do
       registry.register(archivable_item)
