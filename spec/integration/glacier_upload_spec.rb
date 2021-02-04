@@ -121,7 +121,7 @@ RSpec.describe "Glacier Upload", :freeze_time do
         vault_name: vault_name,
         root_path: root_path,
         archive_registry_factory: archive_registry_factory,
-        )
+      )
     end
 
     let(:aws_key) { ENV.fetch("AWS_KEY") }
