@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://glacier.<AWS_REGION>.amazonaws.com/-/vaults/<VAULT_NAME>/archives
+    body:
+      encoding: UTF-8
+      string: |
+        id;created_at;partition_name
+        7;2020-01-01 11:00:00;Partition_1
+        8;2020-01-01 11:00:00;Partition_1
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.112.0 ruby/2.7.1 x86_64-darwin18 aws-sdk-glacier/1.36.0
+      X-Amz-Archive-Description:
+      - User_partition_name_Partition_1_1612437881
+      X-Amz-Glacier-Version:
+      - '2012-06-01'
+      X-Amz-Content-Sha256:
+      - 33be097eb49447dd7c61b8ddc6ba092f0b68a440f18fbe7947fa8a32c7bbc772
+      X-Amz-Sha256-Tree-Hash:
+      - 33be097eb49447dd7c61b8ddc6ba092f0b68a440f18fbe7947fa8a32c7bbc772
+      Host:
+      - glacier.<AWS_REGION>.amazonaws.com
+      X-Amz-Date:
+      - 20210204T112441Z
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_KEY>/20210204/<AWS_REGION>/glacier/aws4_request,
+        SignedHeaders=host;x-amz-archive-description;x-amz-content-sha256;x-amz-date;x-amz-glacier-version;x-amz-sha256-tree-hash,
+        Signature=56f24c0f2988dd505bffcbfe2574369f4416a766f2adae370c642a3789b0c44a
+      Content-Length:
+      - '97'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      X-Amzn-Requestid:
+      - atSp-SHRjjIuRGtGduIq4xieSMzP0m-0K5f1z3h1OFnNIEI
+      X-Amz-Sha256-Tree-Hash:
+      - 33be097eb49447dd7c61b8ddc6ba092f0b68a440f18fbe7947fa8a32c7bbc772
+      Location:
+      - "/441911171826/vaults/<VAULT_NAME>/archives/7OPcmpwLr2xf3e5mLv6gnXhiZHUBvCjW2HNG0TGOdaxRRBjVV9P9O-WKNIJjX3nGROTxvV5sq1CcgmgZmoGnL3ClY1Xwo-0YMaxlW5BxuMLxYIPtJJmZMDUXYVG9cREcySvpkXGvWQ"
+      X-Amz-Archive-Id:
+      - 7OPcmpwLr2xf3e5mLv6gnXhiZHUBvCjW2HNG0TGOdaxRRBjVV9P9O-WKNIJjX3nGROTxvV5sq1CcgmgZmoGnL3ClY1Xwo-0YMaxlW5BxuMLxYIPtJJmZMDUXYVG9cREcySvpkXGvWQ
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+      Date:
+      - Thu, 04 Feb 2021 11:24:42 GMT
+    body:
+      encoding: UTF-8
+      string: "{}"
+  recorded_at: Thu, 04 Feb 2021 11:24:41 GMT
+recorded_with: VCR 6.0.0

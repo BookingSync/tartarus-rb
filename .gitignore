@@ -7,6 +7,8 @@
 /spec/reports/
 /tmp/
 /spec/test.db
+/spec/tmp/
+.env
 
 # rspec failure tracking
 .rspec_status

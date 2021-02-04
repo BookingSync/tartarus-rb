@@ -29,11 +29,17 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "sidekiq", ">= 5"
   spec.add_dependency "sidekiq-cron", "~> 1"
+  spec.add_dependency "aws-sdk-glacier"
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec-sidekiq"
 
   spec.add_development_dependency "activerecord", "~> 6"
-  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "pg"
+  spec.add_development_dependency "vcr"
+  spec.add_development_dependency "webmock"
+  spec.add_development_dependency "dotenv"
+  spec.add_development_dependency "postgres-copy"
+  spec.add_development_dependency "timecop"
 end

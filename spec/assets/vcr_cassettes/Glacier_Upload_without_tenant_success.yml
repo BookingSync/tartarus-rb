@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://glacier.<AWS_REGION>.amazonaws.com/-/vaults/<VAULT_NAME>/archives
+    body:
+      encoding: UTF-8
+      string: |
+        id;created_at;partition_name
+        1;2020-01-01 11:00:00;Partition_1
+        2;2020-01-01 11:00:00;Partition_1
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.112.0 ruby/2.7.1 x86_64-darwin18 aws-sdk-glacier/1.36.0
+      X-Amz-Archive-Description:
+      - User___1612436377
+      X-Amz-Glacier-Version:
+      - '2012-06-01'
+      X-Amz-Content-Sha256:
+      - 1231bdc7c570d7e7877105b2804824b4a3a87cd87f562720c06572d5ba7a95ae
+      X-Amz-Sha256-Tree-Hash:
+      - 1231bdc7c570d7e7877105b2804824b4a3a87cd87f562720c06572d5ba7a95ae
+      Host:
+      - glacier.<AWS_REGION>.amazonaws.com
+      X-Amz-Date:
+      - 20210204T105937Z
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_KEY>/20210204/<AWS_REGION>/glacier/aws4_request,
+        SignedHeaders=host;x-amz-archive-description;x-amz-content-sha256;x-amz-date;x-amz-glacier-version;x-amz-sha256-tree-hash,
+        Signature=ffc2887f7f68d8ea15dc4cb400bc382ced49d6a938a084cf2e7d6d8bb1fafd53
+      Content-Length:
+      - '97'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      X-Amzn-Requestid:
+      - hDalTw5207EcEo0rcuu-tKdCskBkPJVK5rwFSQTtLNF4brc
+      X-Amz-Sha256-Tree-Hash:
+      - 1231bdc7c570d7e7877105b2804824b4a3a87cd87f562720c06572d5ba7a95ae
+      Location:
+      - "/441911171826/vaults/<VAULT_NAME>/archives/C4hLRuh_fz0gXPkuEggmiju7DwJLYYNIGvbh-I82vZuZReEa0w6j5-bntK-v4k8GS10oYmzCN5KmpvTGEB-cj_lxyhvSZQsDfN9LuA718bZLw0-rnc6-qT_yzDl03nFq4_87DGWDyg"
+      X-Amz-Archive-Id:
+      - C4hLRuh_fz0gXPkuEggmiju7DwJLYYNIGvbh-I82vZuZReEa0w6j5-bntK-v4k8GS10oYmzCN5KmpvTGEB-cj_lxyhvSZQsDfN9LuA718bZLw0-rnc6-qT_yzDl03nFq4_87DGWDyg
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+      Date:
+      - Thu, 04 Feb 2021 10:59:38 GMT
+    body:
+      encoding: UTF-8
+      string: "{}"
+  recorded_at: Thu, 04 Feb 2021 10:59:38 GMT
+recorded_with: VCR 6.0.0

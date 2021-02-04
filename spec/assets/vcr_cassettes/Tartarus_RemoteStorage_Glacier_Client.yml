@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://glacier.<AWS_REGION>.amazonaws.com/-/vaults/<VAULT_NAME>/archives
+    body:
+      encoding: UTF-8
+      string: body
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.112.0 ruby/2.7.1 x86_64-darwin18 aws-sdk-glacier/1.36.0
+      X-Amz-Archive-Description:
+      - Tartarus file
+      X-Amz-Glacier-Version:
+      - '2012-06-01'
+      X-Amz-Content-Sha256:
+      - 230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5
+      X-Amz-Sha256-Tree-Hash:
+      - 230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5
+      Host:
+      - glacier.<AWS_REGION>.amazonaws.com
+      X-Amz-Date:
+      - 20210204T101021Z
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_KEY>/20210204/<AWS_REGION>/glacier/aws4_request,
+        SignedHeaders=host;x-amz-archive-description;x-amz-content-sha256;x-amz-date;x-amz-glacier-version;x-amz-sha256-tree-hash,
+        Signature=67ff5ac1c3dddd20322bf323bf204b428feec591fc5c0e0da0bc6f954a0a3411
+      Content-Length:
+      - '4'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      X-Amzn-Requestid:
+      - _eYmDpwoJix7cy81fvFkSFQvjk3pLDaD5Jw_efBwLzvz2Wo
+      X-Amz-Sha256-Tree-Hash:
+      - 230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5
+      Location:
+      - "/441911171826/vaults/VAULT_NAME/archives/evQkWS6TGS0VR2tGEjcKBqTuIHI0McRk0uHbEA2ksQcUr28-ajzOlXHkIuC96y1dpzGmA6uLMPAcic8o3R3T88cZc1Fc3mB-BF_UHYCvf-1BIxXH1l7sEcQnspg1rsmlZ5soHp0i-A"
+      X-Amz-Archive-Id:
+      - evQkWS6TGS0VR2tGEjcKBqTuIHI0McRk0uHbEA2ksQcUr28-ajzOlXHkIuC96y1dpzGmA6uLMPAcic8o3R3T88cZc1Fc3mB-BF_UHYCvf-1BIxXH1l7sEcQnspg1rsmlZ5soHp0i-A
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+      Date:
+      - Thu, 04 Feb 2021 10:10:25 GMT
+    body:
+      encoding: UTF-8
+      string: "{}"
+  recorded_at: Thu, 04 Feb 2021 10:10:25 GMT
+recorded_with: VCR 6.0.0
