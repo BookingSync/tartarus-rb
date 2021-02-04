@@ -60,7 +60,20 @@ RSpec.describe Tartarus::ArchiveModelWithTenant do
         item.timestamp_field = :created_at
         item.archive_items_older_than = -> { Date.today }
         item.tenant_id_field = :tenant_id
+        item.remote_storage = remote_storage
       end
+    end
+    let(:remote_storage) do
+      Class.new do
+        attr_reader :collection, :model_name, :tenant_id, :tenant_id_field
+
+        def store(collection, model_name, tenant_id:, tenant_id_field:)
+          @collection = collection
+          @model_name = model_name
+          @tenant_id = tenant_id
+          @tenant_id_field = tenant_id_field
+        end
+      end.new
     end
 
     before do
@@ -76,6 +89,15 @@ RSpec.describe Tartarus::ArchiveModelWithTenant do
       .and change { repository.tenant_id_field }.from(nil).to(:tenant_id)
       .and change { repository.tenant_id }.from(nil).to(11)
       .and change { repository.deleted? }.from(false).to(true)
+    end
+
+    it "stores records in a remote storage" do
+      expect {
+        archive
+      }.to change { remote_storage.collection }.from(nil).to(repository)
+      .and change { remote_storage.model_name }.from(nil).to(model_name)
+      .and change { remote_storage.tenant_id }.from(nil).to(11)
+      .and change { remote_storage.tenant_id_field }.from(nil).to(:tenant_id)
     end
   end
 end
