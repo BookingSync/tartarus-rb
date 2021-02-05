@@ -34,7 +34,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part) { ";2020-01-01 11:00:00;Partition_1" }
+    let(:csv_body_part) { "#{User.minimum(:id) - 1};2020-01-01 12:00:00;Partition_1" } # first 100 records were deleted, so we need the last previous ID
     let(:created_archive_registry) { ArchiveRegistry.last }
     let(:expected_numbers_of_rows_in_csv_file) { 1 + 100 } # headers + deleted rows
 
@@ -43,10 +43,10 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
 
       User.delete_all
 
-      100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-      50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
-      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
+      100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+      50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
+      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
     end
 
     around do |example|
@@ -145,7 +145,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part) { "2020-01-01 11:00:00;Partition_2" }
+    let(:csv_body_part) { "#{User.maximum(:id) - 41};2020-01-01 12:00:00;Partition_2" } # first 150 records were deleted, so we need the last previous ID
     let(:created_archive_registry) { ArchiveRegistry.last }
     let(:expected_numbers_of_rows_in_csv_file) { 1 + 150 } # headers + deleted rows
 
@@ -154,10 +154,10 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
 
       User.delete_all
 
-      100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-      50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
-      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
+      100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+      50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
+      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+      20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
     end
 
     around do |example|

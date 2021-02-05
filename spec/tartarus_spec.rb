@@ -66,11 +66,11 @@ RSpec.describe Tartarus do
     end
 
     around do |example|
-      Sidekiq.redis { |redis| puts redis.flushall }
+      Sidekiq.redis { |redis| redis.flushall }
 
       example.run
 
-      Sidekiq.redis { |redis| puts redis.flushall }
+      Sidekiq.redis { |redis| redis.flushall }
     end
 
     it "adds registered items to Sidekiq Cron schedule" do

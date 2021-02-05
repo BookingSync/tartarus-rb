@@ -22,12 +22,13 @@ RSpec.describe "Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part) { ";2020-01-01 11:00:00;Partition_1" }
+    let(:csv_body_part_1) { "#{User.first.id};2020-01-01 12:00:00;Partition_1" }
+    let(:csv_body_part_2) { "#{User.last.id};2020-01-01 12:00:00;Partition_1" }
     let(:created_archive_registry) { ArchiveRegistry.last }
 
     before do
       Partition.create!(name: "Partition_1")
-      2.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
+      2.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
     end
 
     after do
@@ -47,9 +48,7 @@ RSpec.describe "Glacier Upload", :freeze_time do
         upload_to_glacier
 
         assert_requested(:post, "https://glacier.#{aws_region}.amazonaws.com/-/vaults/#{vault_name}/archives") do |req|
-          puts "request body: #{req.body}"
-          puts "csv body part: #{csv_body_part}"
-          req.body.include?(csv_headers) && req.body.include?(csv_body_part)
+          req.body.include?(csv_headers) && req.body.include?(csv_body_part_1) && req.body.include?(csv_body_part_2)
         end
       end
 
@@ -132,13 +131,13 @@ RSpec.describe "Glacier Upload", :freeze_time do
     let(:root_path) { "#{$LOAD_PATH.first}" }
     let(:archive_registry_factory) { ArchiveRegistry }
     let(:csv_headers) { "id;created_at;partition_name" }
-    let(:csv_body_part_1) { "#{User.first.id};2020-01-01 11:00:00;Partition_1" }
-    let(:csv_body_part_2) { "#{User.last.id};2020-01-01 11:00:00;Partition_1" }
+    let(:csv_body_part_1) { "#{User.first.id};2020-01-01 12:00:00;Partition_1" }
+    let(:csv_body_part_2) { "#{User.last.id};2020-01-01 12:00:00;Partition_1" }
     let(:created_archive_registry) { ArchiveRegistry.last }
 
     before do
       Partition.create!(name: "Partition_1")
-      2.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
+      2.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
     end
 
     after do
