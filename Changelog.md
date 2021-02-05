@@ -1,5 +1,9 @@
 # Changelog
 
+## Master
+
+- Allow Glacier remote storage support to upload data before deleting it
+
 ## 0.3.0
 
 - Add `delete_all_using_limit_in_batches` strategy
