@@ -47,6 +47,8 @@ RSpec.describe "Glacier Upload", :freeze_time do
         upload_to_glacier
 
         assert_requested(:post, "https://glacier.#{aws_region}.amazonaws.com/-/vaults/#{vault_name}/archives") do |req|
+          puts "request body: #{req.body}"
+          puts "csv body part: #{csv_body_part}"
           req.body.include?(csv_headers) && req.body.include?(csv_body_part)
         end
       end
