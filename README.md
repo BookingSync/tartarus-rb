@@ -61,7 +61,7 @@ if File.exist?(schedule_file) && Sidekiq.server?
     aws_secret: ENV.fetch("AWS_SECRET"),
     aws_region: ENV.fetch("AWS_REGION"),
     vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
-    root_path: Rails.root,
+    root_path: Rails.root.to_s,
     archive_registry_factory: ArchiveRegistry,
   )
 
@@ -100,7 +100,7 @@ To take advantage of this feature you will need a couple of things:
 1. Apply `acts_as_copy_target` to the archivable model (from `postgres-copy` gem).
 2. Create a model that will be used as a registry for all uploads that happened.
 
-If you want to make `Version` model archivable and use ArchiveRegistry as the registry, you will need the following models and tables:
+If you want to make `Version` model archivable and use `ArchiveRegistry` as the registry, you will need the following models and tables:
 
 ``` rb
 database.create_table(:archive_registries) do |t|
@@ -134,7 +134,7 @@ glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
   aws_secret: ENV.fetch("AWS_SECRET"),
   aws_region: ENV.fetch("AWS_REGION"),
   vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
-  root_path: Rails.root,
+  root_path: Rails.root.to_s,
   archive_registry_factory: ArchiveRegistry,
 )
 Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
@@ -148,11 +148,27 @@ glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
   aws_secret: ENV.fetch("AWS_SECRET"),
   aws_region: ENV.fetch("AWS_REGION"),
   vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
-  root_path: Rails.root,
+  root_path: Rails.root.to_s,
   archive_registry_factory: ArchiveRegistry,
   account_id: "some_account_id"
 )
 Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
+```
+
+If you know what you are doing, you can add your own storage, as long as it complies with the following interface:
+
+``` rb
+class Glacier
+  attr_reader :configuration
+  private     :configuration
+
+  def initialize(configuration)
+    @configuration = configuration
+  end
+
+  def store(collection, archivable_model, tenant_id: nil, tenant_id_field: nil) 
+  end
+end
 ```
 
 ### Testing before actually using it

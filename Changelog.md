@@ -2,7 +2,7 @@
 
 ## Master
 
-- Allow Glacier remote storage support to upload data before deleting it
+- Add Glacier remote storage support to upload data before deleting it
 
 ## 0.3.0
 
