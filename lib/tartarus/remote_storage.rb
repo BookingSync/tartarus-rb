@@ -1,0 +1,2 @@
+module Tartarus::RemoteStorage
+end

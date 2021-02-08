@@ -18,10 +18,10 @@ RSpec.describe "Integration Test: Archiving Using In Batches From Rails 6" do
   before do
     registry.register(archivable_item)
 
-    100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-    50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
-    20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_1") }
-    20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0), partition_name: "Partition_2") }
+    100.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+    50.times { User.create!(created_at: Time.new(2020, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
+    20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_1") }
+    20.times { User.create!(created_at: Time.new(2030, 1, 1, 12, 0, 0, 0), partition_name: "Partition_2") }
   end
 
   after do

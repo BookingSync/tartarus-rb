@@ -6,11 +6,11 @@ RSpec.describe Tartarus::Repository do
 
     context "when archivable item can be serialized to a valid job" do
       around do |example|
-        Sidekiq.redis { |redis| puts redis.flushall }
+        Sidekiq.redis { |redis| redis.flushall }
 
         example.run
 
-        Sidekiq.redis { |redis| puts redis.flushall }
+        Sidekiq.redis { |redis| redis.flushall }
       end
 
       context "when the job does not exist" do

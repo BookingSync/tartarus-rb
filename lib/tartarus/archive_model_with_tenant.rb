@@ -9,8 +9,10 @@ class Tartarus::ArchiveModelWithTenant
 
   def archive(model_name, tenant_id)
     archivable_item = registry.find_by_model(model_name)
-
-    archivable_item.archive_strategy.call(collection_to_archive(model_name, archivable_item, tenant_id))
+    collection = collection_to_archive(model_name, archivable_item, tenant_id)
+    archivable_item.remote_storage.store(collection, model_name, tenant_id: tenant_id,
+      tenant_id_field: archivable_item.tenant_id_field)
+    archivable_item.archive_strategy.call(collection)
   end
 
   private

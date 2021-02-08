@@ -1,0 +1,210 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://glacier.<AWS_REGION>.amazonaws.com/-/vaults/<VAULT_NAME>/archives
+    body:
+      encoding: UTF-8
+      string: |
+        id;created_at;partition_name
+        761;2020-01-01 12:00:00;Partition_1
+        762;2020-01-01 12:00:00;Partition_1
+        763;2020-01-01 12:00:00;Partition_1
+        764;2020-01-01 12:00:00;Partition_1
+        765;2020-01-01 12:00:00;Partition_1
+        766;2020-01-01 12:00:00;Partition_1
+        767;2020-01-01 12:00:00;Partition_1
+        768;2020-01-01 12:00:00;Partition_1
+        769;2020-01-01 12:00:00;Partition_1
+        770;2020-01-01 12:00:00;Partition_1
+        771;2020-01-01 12:00:00;Partition_1
+        772;2020-01-01 12:00:00;Partition_1
+        773;2020-01-01 12:00:00;Partition_1
+        774;2020-01-01 12:00:00;Partition_1
+        775;2020-01-01 12:00:00;Partition_1
+        776;2020-01-01 12:00:00;Partition_1
+        777;2020-01-01 12:00:00;Partition_1
+        778;2020-01-01 12:00:00;Partition_1
+        779;2020-01-01 12:00:00;Partition_1
+        780;2020-01-01 12:00:00;Partition_1
+        781;2020-01-01 12:00:00;Partition_1
+        782;2020-01-01 12:00:00;Partition_1
+        783;2020-01-01 12:00:00;Partition_1
+        784;2020-01-01 12:00:00;Partition_1
+        785;2020-01-01 12:00:00;Partition_1
+        786;2020-01-01 12:00:00;Partition_1
+        787;2020-01-01 12:00:00;Partition_1
+        788;2020-01-01 12:00:00;Partition_1
+        789;2020-01-01 12:00:00;Partition_1
+        790;2020-01-01 12:00:00;Partition_1
+        791;2020-01-01 12:00:00;Partition_1
+        792;2020-01-01 12:00:00;Partition_1
+        793;2020-01-01 12:00:00;Partition_1
+        794;2020-01-01 12:00:00;Partition_1
+        795;2020-01-01 12:00:00;Partition_1
+        796;2020-01-01 12:00:00;Partition_1
+        797;2020-01-01 12:00:00;Partition_1
+        798;2020-01-01 12:00:00;Partition_1
+        799;2020-01-01 12:00:00;Partition_1
+        800;2020-01-01 12:00:00;Partition_1
+        801;2020-01-01 12:00:00;Partition_1
+        802;2020-01-01 12:00:00;Partition_1
+        803;2020-01-01 12:00:00;Partition_1
+        804;2020-01-01 12:00:00;Partition_1
+        805;2020-01-01 12:00:00;Partition_1
+        806;2020-01-01 12:00:00;Partition_1
+        807;2020-01-01 12:00:00;Partition_1
+        808;2020-01-01 12:00:00;Partition_1
+        809;2020-01-01 12:00:00;Partition_1
+        810;2020-01-01 12:00:00;Partition_1
+        811;2020-01-01 12:00:00;Partition_1
+        812;2020-01-01 12:00:00;Partition_1
+        813;2020-01-01 12:00:00;Partition_1
+        814;2020-01-01 12:00:00;Partition_1
+        815;2020-01-01 12:00:00;Partition_1
+        816;2020-01-01 12:00:00;Partition_1
+        817;2020-01-01 12:00:00;Partition_1
+        818;2020-01-01 12:00:00;Partition_1
+        819;2020-01-01 12:00:00;Partition_1
+        820;2020-01-01 12:00:00;Partition_1
+        821;2020-01-01 12:00:00;Partition_1
+        822;2020-01-01 12:00:00;Partition_1
+        823;2020-01-01 12:00:00;Partition_1
+        824;2020-01-01 12:00:00;Partition_1
+        825;2020-01-01 12:00:00;Partition_1
+        826;2020-01-01 12:00:00;Partition_1
+        827;2020-01-01 12:00:00;Partition_1
+        828;2020-01-01 12:00:00;Partition_1
+        829;2020-01-01 12:00:00;Partition_1
+        830;2020-01-01 12:00:00;Partition_1
+        831;2020-01-01 12:00:00;Partition_1
+        832;2020-01-01 12:00:00;Partition_1
+        833;2020-01-01 12:00:00;Partition_1
+        834;2020-01-01 12:00:00;Partition_1
+        835;2020-01-01 12:00:00;Partition_1
+        836;2020-01-01 12:00:00;Partition_1
+        837;2020-01-01 12:00:00;Partition_1
+        838;2020-01-01 12:00:00;Partition_1
+        839;2020-01-01 12:00:00;Partition_1
+        840;2020-01-01 12:00:00;Partition_1
+        841;2020-01-01 12:00:00;Partition_1
+        842;2020-01-01 12:00:00;Partition_1
+        843;2020-01-01 12:00:00;Partition_1
+        844;2020-01-01 12:00:00;Partition_1
+        845;2020-01-01 12:00:00;Partition_1
+        846;2020-01-01 12:00:00;Partition_1
+        847;2020-01-01 12:00:00;Partition_1
+        848;2020-01-01 12:00:00;Partition_1
+        849;2020-01-01 12:00:00;Partition_1
+        850;2020-01-01 12:00:00;Partition_1
+        851;2020-01-01 12:00:00;Partition_1
+        852;2020-01-01 12:00:00;Partition_1
+        853;2020-01-01 12:00:00;Partition_1
+        854;2020-01-01 12:00:00;Partition_1
+        855;2020-01-01 12:00:00;Partition_1
+        856;2020-01-01 12:00:00;Partition_1
+        857;2020-01-01 12:00:00;Partition_1
+        858;2020-01-01 12:00:00;Partition_1
+        859;2020-01-01 12:00:00;Partition_1
+        860;2020-01-01 12:00:00;Partition_1
+        861;2020-01-01 12:00:00;Partition_2
+        862;2020-01-01 12:00:00;Partition_2
+        863;2020-01-01 12:00:00;Partition_2
+        864;2020-01-01 12:00:00;Partition_2
+        865;2020-01-01 12:00:00;Partition_2
+        866;2020-01-01 12:00:00;Partition_2
+        867;2020-01-01 12:00:00;Partition_2
+        868;2020-01-01 12:00:00;Partition_2
+        869;2020-01-01 12:00:00;Partition_2
+        870;2020-01-01 12:00:00;Partition_2
+        871;2020-01-01 12:00:00;Partition_2
+        872;2020-01-01 12:00:00;Partition_2
+        873;2020-01-01 12:00:00;Partition_2
+        874;2020-01-01 12:00:00;Partition_2
+        875;2020-01-01 12:00:00;Partition_2
+        876;2020-01-01 12:00:00;Partition_2
+        877;2020-01-01 12:00:00;Partition_2
+        878;2020-01-01 12:00:00;Partition_2
+        879;2020-01-01 12:00:00;Partition_2
+        880;2020-01-01 12:00:00;Partition_2
+        881;2020-01-01 12:00:00;Partition_2
+        882;2020-01-01 12:00:00;Partition_2
+        883;2020-01-01 12:00:00;Partition_2
+        884;2020-01-01 12:00:00;Partition_2
+        885;2020-01-01 12:00:00;Partition_2
+        886;2020-01-01 12:00:00;Partition_2
+        887;2020-01-01 12:00:00;Partition_2
+        888;2020-01-01 12:00:00;Partition_2
+        889;2020-01-01 12:00:00;Partition_2
+        890;2020-01-01 12:00:00;Partition_2
+        891;2020-01-01 12:00:00;Partition_2
+        892;2020-01-01 12:00:00;Partition_2
+        893;2020-01-01 12:00:00;Partition_2
+        894;2020-01-01 12:00:00;Partition_2
+        895;2020-01-01 12:00:00;Partition_2
+        896;2020-01-01 12:00:00;Partition_2
+        897;2020-01-01 12:00:00;Partition_2
+        898;2020-01-01 12:00:00;Partition_2
+        899;2020-01-01 12:00:00;Partition_2
+        900;2020-01-01 12:00:00;Partition_2
+        901;2020-01-01 12:00:00;Partition_2
+        902;2020-01-01 12:00:00;Partition_2
+        903;2020-01-01 12:00:00;Partition_2
+        904;2020-01-01 12:00:00;Partition_2
+        905;2020-01-01 12:00:00;Partition_2
+        906;2020-01-01 12:00:00;Partition_2
+        907;2020-01-01 12:00:00;Partition_2
+        908;2020-01-01 12:00:00;Partition_2
+        909;2020-01-01 12:00:00;Partition_2
+        910;2020-01-01 12:00:00;Partition_2
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby3/3.112.0 ruby/2.7.1 x86_64-darwin18 aws-sdk-glacier/1.36.0
+      X-Amz-Archive-Description:
+      - User___1612443958
+      X-Amz-Glacier-Version:
+      - '2012-06-01'
+      X-Amz-Content-Sha256:
+      - 3f64e797a2c52fb6f8c706efedbfa9b269809fdbdd38b8f05f0989f7c8f53124
+      X-Amz-Sha256-Tree-Hash:
+      - 3f64e797a2c52fb6f8c706efedbfa9b269809fdbdd38b8f05f0989f7c8f53124
+      Host:
+      - glacier.<AWS_REGION>.amazonaws.com
+      X-Amz-Date:
+      - 20210204T130558Z
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=<AWS_KEY>/20210204/<AWS_REGION>/glacier/aws4_request,
+        SignedHeaders=host;x-amz-archive-description;x-amz-content-sha256;x-amz-date;x-amz-glacier-version;x-amz-sha256-tree-hash,
+        Signature=29f1ef432323a32e8a9ebff8a67be3e3ae9bc375bae55914953d643f5f80a1fa
+      Content-Length:
+      - '5429'
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      X-Amzn-Requestid:
+      - sykEEBR7dLd5fU0pygHLLCHWicYiyVRZmpE8lfBm_vnsFWg
+      X-Amz-Sha256-Tree-Hash:
+      - 3f64e797a2c52fb6f8c706efedbfa9b269809fdbdd38b8f05f0989f7c8f53124
+      Location:
+      - "/441911171826/vaults/<VAULT_NAME>/archives/Iy66HBY14A7Or6bdKql6gtN21SUJ1uHLmsaTosQjmDsKuslMBmFmukQIQ0xRwHeGkqGXAzcU04-9GhQVyBpRB0bSJ1jQ0XetlJgvhf5IZ-IVpkR0JKfcOyb-QgYdq67XzWp_Iax5Lw"
+      X-Amz-Archive-Id:
+      - Iy66HBY14A7Or6bdKql6gtN21SUJ1uHLmsaTosQjmDsKuslMBmFmukQIQ0xRwHeGkqGXAzcU04-9GhQVyBpRB0bSJ1jQ0XetlJgvhf5IZ-IVpkR0JKfcOyb-QgYdq67XzWp_Iax5Lw
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+      Date:
+      - Thu, 04 Feb 2021 13:05:58 GMT
+    body:
+      encoding: UTF-8
+      string: "{}"
+  recorded_at: Thu, 04 Feb 2021 13:05:58 GMT
+recorded_with: VCR 6.0.0

@@ -211,6 +211,22 @@ RSpec.describe Tartarus::ArchivableItem do
         it { is_expected.to eq 100 }
       end
     end
+
+    describe "remote_storage" do
+      subject(:remote_storage) { archivable_item.remote_storage }
+
+      context "when the attribute is not set" do
+        it { is_expected.to eq Tartarus::RemoteStorage::Null }
+      end
+
+      context "when the attribute is set" do
+        before do
+          archivable_item.remote_storage = :remote_storage
+        end
+
+        it { is_expected.to eq :remote_storage }
+      end
+    end
   end
 
   describe "#validate!" do

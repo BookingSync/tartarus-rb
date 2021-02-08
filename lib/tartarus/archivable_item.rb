@@ -1,7 +1,7 @@
 class Tartarus::ArchivableItem
   REQUIRED_ATTRIBUTES_NAMES = %i(model cron queue archive_items_older_than timestamp_field active_job
     archive_with tenant_value_source).freeze
-  OPTIONAL_ATTRIBUTES_NAMES = %i(tenants_range tenant_id_field batch_size).freeze
+  OPTIONAL_ATTRIBUTES_NAMES = %i(tenants_range tenant_id_field batch_size remote_storage).freeze
 
   attr_accessor *(REQUIRED_ATTRIBUTES_NAMES + OPTIONAL_ATTRIBUTES_NAMES)
 
@@ -65,6 +65,10 @@ class Tartarus::ArchivableItem
 
   def for_model?(provided_model_name)
     model.to_s == provided_model_name.to_s
+  end
+
+  def remote_storage
+    @remote_storage || Tartarus::RemoteStorage::Null
   end
 
   private

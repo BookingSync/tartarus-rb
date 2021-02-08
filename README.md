@@ -56,12 +56,22 @@ if File.exist?(schedule_file) && Sidekiq.server?
     item.timestamp_field = :created_at
   end
 
+  glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
+    aws_key: ENV.fetch("AWS_KEY"),
+    aws_secret: ENV.fetch("AWS_SECRET"),
+    aws_region: ENV.fetch("AWS_REGION"),
+    vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
+    root_path: Rails.root.to_s,
+    archive_registry_factory: ArchiveRegistry,
+  )
+
   tartarus.register do |item|
     item.model = YetAnotherModel
     item.cron = "5 6 * * *"
     item.queue = "default"
     item.timestamp_field = :created_at
     item.archive_items_older_than = -> { 1.week.ago }
+    item.remote_storage = Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
   end
 
   tartarus.schedule #  this method must be called to create jobs for sidekiq-cron!
@@ -80,6 +90,86 @@ You can use the following config params:
 - `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
 - `archive_with` - optional (defaults to `delete_all`). Could be `delete_all`, `destroy_all`, `delete_all_without_batches`, `destroy_all_without_batches`, `delete_all_using_limit_in_batches`
 - `batch_size` - optional (defaults to `10_000`, used with `delete_all_using_limit_in_batches` strategy)
+- `remote_storage` - optional (defaults to `Tartarus::RemoteStorage::Null` which does nothing). Use this option if you want store the data somewhere before deleting it. 
+
+### Remote Storage
+
+Currently, only `Glacier` (for AWS Glacier) is supported. Also, it works only with Postgres database and requires [postgres-copy](https://github.com/diogob/postgres-copy).
+
+To take advantage of this feature you will need a couple of things:
+1. Apply `acts_as_copy_target` to the archivable model (from `postgres-copy` gem).
+2. Create a model that will be used as a registry for all uploads that happened.
+
+If you want to make `Version` model archivable and use `ArchiveRegistry` as the registry, you will need the following models and tables:
+
+``` rb
+database.create_table(:archive_registries) do |t|
+  t.string :glacier_location, null: false
+  t.string :glacier_checksum, null: false
+  t.string :glacier_archive_id, null: false
+  t.string :archivable_model, null: false
+  t.string :tenant_id_field
+  t.string :tenant_id
+  t.datetime :completed_at, null: false
+end
+
+database.create_table(:versions) do |t|
+end
+
+class Version < ApplicationRecord
+  acts_as_copy_target
+end
+
+class ArchiveRegistry < ApplicationRecord
+end
+```
+
+You can use the above schema for the registry model as it contains all needed fields.
+
+To initialize the service:
+
+``` rb
+glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
+  aws_key: ENV.fetch("AWS_KEY"),
+  aws_secret: ENV.fetch("AWS_SECRET"),
+  aws_region: ENV.fetch("AWS_REGION"),
+  vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
+  root_path: Rails.root.to_s,
+  archive_registry_factory: ArchiveRegistry,
+)
+Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
+```
+
+You can also pass `account_id` (by default "-" string will be used):
+
+``` rb
+glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
+  aws_key: ENV.fetch("AWS_KEY"),
+  aws_secret: ENV.fetch("AWS_SECRET"),
+  aws_region: ENV.fetch("AWS_REGION"),
+  vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
+  root_path: Rails.root.to_s,
+  archive_registry_factory: ArchiveRegistry,
+  account_id: "some_account_id"
+)
+Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
+```
+
+If you know what you are doing, you can add your own storage, as long as it complies with the following interface:
+
+``` rb
+class Glacier
+  attr_reader :configuration
+  private     :configuration
+
+  def initialize(configuration)
+    @configuration = configuration
+  end
+
+  def store(collection, archivable_model, tenant_id: nil, tenant_id_field: nil) 
+  end
+end
+```
 
 ### Testing before actually using it
 
@@ -88,7 +178,6 @@ You might want to verify that the gem works in the way you expect it to work. Fo
 1. scheduling/enqueueing: use `Tartarus::ScheduleArchivingModel#schedule` - for example, `Tartarus::ScheduleArchivingModel.new.schedule("PaperTrailVersion")`, it's going to enqueue either `Tartarus::Sidekiq::ArchiveModelWithTenantJob` or `Tartarus::Sidekiq::ArchiveModelWithoutTenantJob`, depending on the config.
 2. execution of the archiving logic: use `Tartarus::ArchiveModelWithTenant#archive` (for example, `Tartarus::ArchiveModelWithTenant.new.archive("PaperTrailVersion", "User")`) or `Tartarus::ArchiveModelWithoutTenant#archive` (for example, `Tartarus::ArchiveModelWithoutTenant.new.archive("PaperTrailVersion")`)
 
-
 You might also want to check `spec/integration` to get an idea how the integration tests were written.
 
 ## Development
@@ -96,10 +185,6 @@ You might also want to check `spec/integration` to get an idea how the integrati
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## TODO
-
-- add support for uploading archives to AWS Glacier before deleting items
 
 ## Contributing
 
