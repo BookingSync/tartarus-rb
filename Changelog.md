@@ -2,6 +2,8 @@
 
 ## Master
 
+## 0.4.0
+
 - Add Glacier remote storage support to upload data before deleting it
 
 ## 0.3.0
