@@ -155,6 +155,9 @@ glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
 Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
 ```
 
+**Important** - do not use Glacier Storage for large batches (> 4 GB) as multipart uploads are not supported yet.
+
+
 If you know what you are doing, you can add your own storage, as long as it complies with the following interface:
 
 ``` rb
