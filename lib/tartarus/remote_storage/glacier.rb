@@ -1,3 +1,5 @@
+require "aws-sdk-glacier"
+
 class Tartarus
   module RemoteStorage
     class Glacier

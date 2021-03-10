@@ -27,7 +27,6 @@ require "tartarus/remote_storage/glacier/csv_export"
 require "tartarus/remote_storage/glacier/register_upload"
 require "tartarus/remote_storage/glacier/configuration"
 require "sidekiq/cron/job"
-require "aws-sdk-glacier"
 require "sidekiq"
 
 class Tartarus
