@@ -2,6 +2,8 @@
 
 ## Master
 
+## 0.4.1
+
 - Do not make Glacier a required dependency if not used
 
 ## 0.4.0
