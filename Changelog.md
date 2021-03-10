@@ -2,6 +2,8 @@
 
 ## Master
 
+- Do not make Glacier a required dependency if not used
+
 ## 0.4.0
 
 - Add Glacier remote storage support to upload data before deleting it

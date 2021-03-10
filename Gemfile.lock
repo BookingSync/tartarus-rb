@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     tartarus-rb (0.4.0)
-      aws-sdk-glacier
       sidekiq (>= 5)
       sidekiq-cron (~> 1)
 
@@ -141,6 +140,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 6)
+  aws-sdk-glacier
   dotenv
   pg
   postgres-copy

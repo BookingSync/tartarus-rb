@@ -64,6 +64,7 @@ if File.exist?(schedule_file) && Sidekiq.server?
     root_path: Rails.root.to_s,
     archive_registry_factory: ArchiveRegistry,
   )
+  # don't forget about installing `aws-sdk-glacier` gem
 
   tartarus.register do |item|
     item.model = YetAnotherModel
@@ -99,6 +100,7 @@ Currently, only `Glacier` (for AWS Glacier) is supported. Also, it works only wi
 To take advantage of this feature you will need a couple of things:
 1. Apply `acts_as_copy_target` to the archivable model (from `postgres-copy` gem).
 2. Create a model that will be used as a registry for all uploads that happened.
+3. Install `aws-sdk-glacier` gem.
 
 If you want to make `Version` model archivable and use `ArchiveRegistry` as the registry, you will need the following models and tables:
 

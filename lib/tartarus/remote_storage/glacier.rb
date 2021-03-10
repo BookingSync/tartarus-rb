@@ -1,3 +1,10 @@
+require "aws-sdk-glacier"
+require "tartarus/remote_storage/glacier/client"
+require "tartarus/remote_storage/glacier/file"
+require "tartarus/remote_storage/glacier/csv_export"
+require "tartarus/remote_storage/glacier/register_upload"
+require "tartarus/remote_storage/glacier/configuration"
+
 class Tartarus
   module RemoteStorage
     class Glacier
