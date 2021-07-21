@@ -1,12 +1,12 @@
 RSpec.describe Tartarus::Registry do
-  describe "#find_by_model" do
-    subject(:find_by_model) { registry.find_by_model(model) }
+  describe "#find_by_name" do
+    subject(:find_by_name) { registry.find_by_name(name) }
 
     let(:registry) { described_class.new }
-    let(:model_1) { double(to_s: "OtherModelName") }
-    let(:item_1) { Tartarus::ArchivableItem.new.tap { |item| item.model = model_1 } }
-    let(:model) { double(to_s: "ModelName") }
-    let(:item) { Tartarus::ArchivableItem.new.tap { |item| item.model = model } }
+    let(:name_1) { "OtherModelName" }
+    let(:item_1) { Tartarus::ArchivableItem.new.tap { |item| item.name = name_1 } }
+    let(:name) { "ModelName" }
+    let(:item) { Tartarus::ArchivableItem.new.tap { |item| item.name = name } }
 
     before do
       registry.register(item_1)

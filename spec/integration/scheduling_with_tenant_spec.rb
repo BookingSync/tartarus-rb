@@ -1,6 +1,6 @@
 RSpec.describe "Integration Test: Scheduling Archiving With Tenant" do
   subject(:schedule) do
-    Tartarus::ScheduleArchivingModel.new(registry: registry).schedule(User)
+    Tartarus::ScheduleArchivingModel.new(registry: registry).schedule("User")
   end
 
   let(:registry) { Tartarus::Registry.new }

@@ -3,14 +3,14 @@ RSpec.describe Tartarus::ArchivableItem::SidekiqCronJobSerializer do
     subject(:serialize) { serializer.serialize(item) }
 
     let(:serializer) { described_class.new }
-    let(:item) { double(model: "ModelName", cron: "* * * * *", active_job: false, queue: "default") }
+    let(:item) { double(model: "ModelName", cron: "* * * * *", active_job: false, queue: "default", name: "my_name") }
     let(:expected_hash) do
       {
-        name: "TARTARUS_ModelName",
+        name: "TARTARUS_my_name",
         description: "[TARTARUS] Archiving Job for model: ModelName",
         cron: "* * * * *",
         class: Tartarus::Sidekiq::ScheduleArchivingModelJob,
-        args: ["ModelName"],
+        args: ["my_name"],
         queue: "default",
         active_job: false
       }

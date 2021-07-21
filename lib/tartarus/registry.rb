@@ -16,8 +16,8 @@ class Tartarus::Registry
     @storage << item
   end
 
-  def find_by_model(model)
-    storage.find(->{ raise "#{model} not found in registry" }) { |item| item.for_model?(model) }
+  def find_by_name(name)
+    storage.find(->{ raise "#{name} not found in registry" }) { |item| item.name == name }
   end
 
   def reset

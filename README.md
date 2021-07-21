@@ -82,6 +82,31 @@ end
 
 You can use the following config params:
 - `model` - a name of the ActiveReord model you want to archive, required
+- `name` - name of your strategy, optional. It fallbacks `model.to_s`. It's important to set in in cases when you have several strategies for the same model:
+```rb
+  tartarus.register do |item|
+    item.model = InternalEvent
+    item.name = "archive_account_and_user_internal_events"
+    item.cron = "5 5 * * *"
+    item.queue = "default"
+    item.tenants_range = -> { ["Account", "User"] }
+    item.tenant_id_field = :model_type
+    item.archive_items_older_than = -> { 30.days.ago }
+    item.timestamp_field = :created_at
+  end
+
+  tartarus.register do |item|
+    item.model = InternalEvent
+    item.name = "archive_post_and_comment_internal_events"
+    item.cron = "5 15 * * *"
+    item.queue = "default"
+    item.tenants_range = -> { ["Post", "Comment"] }
+    item.tenant_id_field = :model_type
+    item.archive_items_older_than = -> { 10.days.ago }
+    item.timestamp_field = :created_at
+  end
+```
+
 - `cron` - cron syntax, required
 - `queue` - name of the sidekiq queue you want to use for execution of the jobs, required
 - `tenants_range` - optional, use if you want to scope items by a tenant (or any field that can be used for partitioning). It doesn't have to be ActiveRecord collection, could be just an array. Must be a proc/lambda/object responding to `call` method. For ActvieRecord collection, `find_each` loop will be used for optimization.
@@ -91,7 +116,7 @@ You can use the following config params:
 - `timestamp_field` - required, used for performing a query using the value from `archive_items_older_than`
 - `archive_with` - optional (defaults to `delete_all`). Could be `delete_all`, `destroy_all`, `delete_all_without_batches`, `destroy_all_without_batches`, `delete_all_using_limit_in_batches`
 - `batch_size` - optional (defaults to `10_000`, used with `delete_all_using_limit_in_batches` strategy)
-- `remote_storage` - optional (defaults to `Tartarus::RemoteStorage::Null` which does nothing). Use this option if you want store the data somewhere before deleting it. 
+- `remote_storage` - optional (defaults to `Tartarus::RemoteStorage::Null` which does nothing). Use this option if you want store the data somewhere before deleting it.
 
 ### Remote Storage
 
@@ -171,7 +196,7 @@ class Glacier
     @configuration = configuration
   end
 
-  def store(collection, archivable_model, tenant_id: nil, tenant_id_field: nil) 
+  def store(collection, archivable_model, tenant_id: nil, tenant_id_field: nil)
   end
 end
 ```
