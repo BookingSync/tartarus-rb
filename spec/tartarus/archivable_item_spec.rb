@@ -18,6 +18,30 @@ RSpec.describe Tartarus::ArchivableItem do
       end
     end
 
+    describe "name" do
+      subject(:name) { archivable_item.name }
+
+      context "when the attribute is not set" do
+        it { is_expected.to eq "" }
+      end
+
+      context "when the attribute is set" do
+        before do
+          archivable_item.name = "name"
+        end
+
+        it { is_expected.to eq "name" }
+      end
+
+      context "when the model is set" do
+        before do
+          archivable_item.model = String
+        end
+
+        it { is_expected.to eq "String" }
+      end
+    end
+
     describe "queue" do
       subject(:queue) { archivable_item.queue }
 
@@ -352,25 +376,6 @@ RSpec.describe Tartarus::ArchivableItem do
       end
 
       it { is_expected.to be_a Tartarus::ArchiveStrategy::DestroyAll }
-    end
-  end
-
-  describe "#for_model?" do
-    subject(:for_model?) { archivable_item.for_model?(provided_model) }
-
-    let(:archivable_item) { described_class.new.tap { |item| item.model = model } }
-    let(:model) { "ModelName" }
-
-    context "when provided model name is the one for which the item was created" do
-      let(:provided_model) { double(to_s: model) }
-
-      it { is_expected.to eq true }
-    end
-
-    context "when provided model name is not the one for which the item was created" do
-      let(:provided_model) { double(to_s: "Other") }
-
-      it { is_expected.to eq false }
     end
   end
 end

@@ -72,6 +72,37 @@ RSpec.describe Tartarus::Repository do
           .and change { Sidekiq::Cron::Job.find("TARTARUS_Model").cron }.from("1 * * * *").to("* * * * *")
         end
       end
+
+      context "when there are two items for the same model but with different names" do
+        subject(:save_both) do
+          repository.save(archivable_item_1)
+          repository.save(archivable_item_2)
+        end
+
+        let(:archivable_item_1) do
+          Tartarus::ArchivableItem.new.tap do |item|
+            item.model = Class.new
+            item.cron = "1 * * * *"
+            item.name = "critical"
+          end
+        end
+        let(:archivable_item_2) do
+          Tartarus::ArchivableItem.new.tap do |item|
+            item.model = Class.new
+            item.cron = "* * * * *"
+            item.name = "important"
+          end
+        end
+
+        it "creates two different jobs" do
+          expect {
+            save_both
+          }.to change { Sidekiq::Cron::Job.count }.by(2)
+
+          expect(Sidekiq::Cron::Job.find("TARTARUS_critical").args).to eq ["critical"]
+          expect(Sidekiq::Cron::Job.find("TARTARUS_important").args).to eq ["important"]
+        end
+      end
     end
 
     context "when archivable item cannot be serialized to a valid job" do

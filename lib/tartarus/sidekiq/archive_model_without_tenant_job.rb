@@ -4,8 +4,8 @@ class Tartarus
   class Sidekiq::ArchiveModelWithoutTenantJob
     include ::Sidekiq::Worker
 
-    def perform(model_name)
-      Tartarus::ArchiveModelWithoutTenant.new.archive(model_name)
+    def perform(archivable_item_name)
+      Tartarus::ArchiveModelWithoutTenant.new.archive(archivable_item_name)
     end
   end
 end

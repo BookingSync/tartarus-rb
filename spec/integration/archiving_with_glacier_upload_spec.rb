@@ -1,7 +1,7 @@
 RSpec.describe "Archiving With Glacier Upload", :freeze_time do
   context "with tenant" do
     subject(:archive) do
-      Tartarus::ArchiveModelWithTenant.new(registry: registry).archive(User, "Partition_1")
+      Tartarus::ArchiveModelWithTenant.new(registry: registry).archive("User", "Partition_1")
     end
 
     let(:registry) { Tartarus::Registry.new }
@@ -114,7 +114,7 @@ RSpec.describe "Archiving With Glacier Upload", :freeze_time do
 
   context "without tenant" do
     subject(:archive) do
-      Tartarus::ArchiveModelWithoutTenant.new(registry: registry).archive(User)
+      Tartarus::ArchiveModelWithoutTenant.new(registry: registry).archive("User")
     end
 
     let(:registry) { Tartarus::Registry.new }

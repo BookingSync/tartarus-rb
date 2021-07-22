@@ -1,6 +1,6 @@
 RSpec.describe "Integration Test: Archiving Without Using In Batches From Rails 6" do
   subject(:archive) do
-    Tartarus::ArchiveModelWithoutTenant.new(registry: registry).archive(UserWithoutInBatches)
+    Tartarus::ArchiveModelWithoutTenant.new(registry: registry).archive("UserWithoutInBatches")
   end
 
   let(:registry) { Tartarus::Registry.new }

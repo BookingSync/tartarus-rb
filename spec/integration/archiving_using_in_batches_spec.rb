@@ -1,6 +1,6 @@
 RSpec.describe "Integration Test: Archiving Using In Batches From Rails 6" do
   subject(:archive) do
-    Tartarus::ArchiveModelWithTenant.new(registry: registry).archive(User, "Partition_1")
+    Tartarus::ArchiveModelWithTenant.new(registry: registry).archive("User", "Partition_1")
   end
 
   let(:registry) { Tartarus::Registry.new }

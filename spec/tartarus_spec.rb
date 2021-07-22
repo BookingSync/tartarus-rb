@@ -29,7 +29,7 @@ RSpec.describe Tartarus do
           register
         }.to change { registry.size }.from(0).to(1)
 
-        expect(registry.find_by_model(model)).to be_a(Tartarus::ArchivableItem)
+        expect(registry.find_by_name(model)).to be_a(Tartarus::ArchivableItem)
       end
     end
 

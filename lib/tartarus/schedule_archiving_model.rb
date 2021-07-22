@@ -6,15 +6,15 @@ class Tartarus::ScheduleArchivingModel
     @registry = registry
   end
 
-  def schedule(model_name)
-    archivable_item = registry.find_by_model(model_name)
+  def schedule(archivable_item_name)
+    archivable_item = registry.find_by_name(archivable_item_name)
 
     if archivable_item.scope_by_tenant?
       each_tenant(archivable_item) do |tenant|
-        enqueue(Tartarus::Sidekiq::ArchiveModelWithTenantJob, archivable_item.queue, model_name, tenant)
+        enqueue(Tartarus::Sidekiq::ArchiveModelWithTenantJob, archivable_item.queue, archivable_item.name, tenant)
       end
     else
-      enqueue(Tartarus::Sidekiq::ArchiveModelWithoutTenantJob, archivable_item.queue, model_name)
+      enqueue(Tartarus::Sidekiq::ArchiveModelWithoutTenantJob, archivable_item.queue, archivable_item.name)
     end
   end
 
