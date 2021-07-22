@@ -2,6 +2,10 @@
 
 ## Master
 
+## 0.5.0
+
+- Provide ability to explicitly set the name of archivable item to have multiple ways of archiving the same model
+
 ## 0.4.1
 
 - Do not make Glacier a required dependency if not used
