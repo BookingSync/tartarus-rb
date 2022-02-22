@@ -20,7 +20,7 @@ class Tartarus
       collection = collection_for(model_name)
       ensure_column_exists(collection, model_name, timestamp_field)
 
-      collection.where("#{timestamp_field} < ?", timestamp)
+      collection.where("#{timestamp_field} < ?", timestamp).order(timestamp_field)
     end
 
     private
