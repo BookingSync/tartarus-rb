@@ -2,6 +2,8 @@
 
 ## Master
 
+- Optimize query from `Tartarus::ArchivableCollectionRepository#items_older_than` by adding explicit ordering
+
 ## 0.5.0
 
 - Provide ability to explicitly set the name of archivable item to have multiple ways of archiving the same model

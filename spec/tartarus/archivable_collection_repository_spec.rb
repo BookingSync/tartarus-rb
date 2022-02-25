@@ -78,10 +78,17 @@ RSpec.describe Tartarus::ArchivableCollectionRepository do
         ]
       end
 
+      let(:expected_order) do
+        [
+          :created_at
+        ]
+      end
+
       it "queries the target collection using ActiveRecord-like interface returning the collection" do
         expect {
           items_older_than
         }.to change { collection.where_statements }.from([]).to(expected_where_statements)
+        .and change { collection.order_by }.from([]).to(expected_order)
       end
 
       it "returns the collection" do
