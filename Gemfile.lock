@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tartarus-rb (0.5.0)
+    tartarus-rb (0.6.0)
       sidekiq (>= 5)
       sidekiq-cron (~> 1)
 

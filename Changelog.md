@@ -2,6 +2,8 @@
 
 ## Master
 
+## 0.6.0
+
 - Optimize query from `Tartarus::ArchivableCollectionRepository#items_older_than` by adding explicit ordering
 
 ## 0.5.0
