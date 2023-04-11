@@ -27,58 +27,61 @@ Here are some examples how to use it
 Put it in the initializer, e.g. in `config/initializers/sidekiq.rb` right after loading schedule for `sidekiq-cron`:
 
 ``` rb
-schedule_file = "config/schedule.yml"
+Sidekiq.configure_server do |config|
+  config.on(:startup) do
+    schedule_file = "config/schedule.yml"
 
-if File.exist?(schedule_file) && Sidekiq.server?
-  Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+    if File.exist?(schedule_file) && Sidekiq.server?
+      Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
 
-  tartarus = Tartarus.new
+      tartarus = Tartarus.new
 
-  tartarus.register do |item|
-    item.model = ModelThatYouWantToArchive
-    item.cron = "5 4 * * *"
-    item.queue = "default"
-    item.tenants_range = -> { Account.active }
-    item.tenant_value_source = :uuid
-    item.tenant_id_field = :account_uuid
-    item.archive_items_older_than = -> { 30.days.ago }
-    item.timestamp_field = :created_at
-    item.archive_with = :destroy_all
+      tartarus.register do |item|
+        item.model = ModelThatYouWantToArchive
+        item.cron = "5 4 * * *"
+        item.queue = "default"
+        item.tenants_range = -> { Account.active }
+        item.tenant_value_source = :uuid
+        item.tenant_id_field = :account_uuid
+        item.archive_items_older_than = -> { 30.days.ago }
+        item.timestamp_field = :created_at
+        item.archive_with = :destroy_all
+      end
+
+      tartarus.register do |item|
+        item.model = OtherModelThatYouWantToArchive
+        item.cron = "5 5 * * *"
+        item.queue = "default"
+        item.tenants_range = -> { ["Account", "User"] }
+        item.tenant_id_field = :model_type
+        item.archive_items_older_than = -> { 30.days.ago }
+        item.timestamp_field = :created_at
+      end
+
+      glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
+        aws_key: ENV.fetch("AWS_KEY"),
+        aws_secret: ENV.fetch("AWS_SECRET"),
+        aws_region: ENV.fetch("AWS_REGION"),
+        vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
+        root_path: Rails.root.to_s,
+        archive_registry_factory: ArchiveRegistry,
+      )
+      # don't forget about installing `aws-sdk-glacier` gem
+
+      tartarus.register do |item|
+        item.model = YetAnotherModel
+        item.cron = "5 6 * * *"
+        item.queue = "default"
+        item.timestamp_field = :created_at
+        item.archive_items_older_than = -> { 1.week.ago }
+        item.remote_storage = Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
+      end
+
+      tartarus.schedule #  this method must be called to create jobs for sidekiq-cron!
+    end
   end
-
-  tartarus.register do |item|
-    item.model = OtherModelThatYouWantToArchive
-    item.cron = "5 5 * * *"
-    item.queue = "default"
-    item.tenants_range = -> { ["Account", "User"] }
-    item.tenant_id_field = :model_type
-    item.archive_items_older_than = -> { 30.days.ago }
-    item.timestamp_field = :created_at
-  end
-
-  glacier_configuration = Tartarus::RemoteStorage::Glacier::Configuration.build(
-    aws_key: ENV.fetch("AWS_KEY"),
-    aws_secret: ENV.fetch("AWS_SECRET"),
-    aws_region: ENV.fetch("AWS_REGION"),
-    vault_name: ENV.fetch("GLACIER_VAULT_NAME"),
-    root_path: Rails.root.to_s,
-    archive_registry_factory: ArchiveRegistry,
-  )
-  # don't forget about installing `aws-sdk-glacier` gem
-
-  tartarus.register do |item|
-    item.model = YetAnotherModel
-    item.cron = "5 6 * * *"
-    item.queue = "default"
-    item.timestamp_field = :created_at
-    item.archive_items_older_than = -> { 1.week.ago }
-    item.remote_storage = Tartarus::RemoteStorage::Glacier.new(glacier_configuration)
-  end
-
-  tartarus.schedule #  this method must be called to create jobs for sidekiq-cron!
 end
 ```
-
 
 You can use the following config params:
 - `model` - a name of the ActiveReord model you want to archive, required
