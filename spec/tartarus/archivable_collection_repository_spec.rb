@@ -33,18 +33,10 @@ RSpec.describe Tartarus::ArchivableCollectionRepository do
         ]
       end
 
-      let(:expected_order) do
-        [
-          "tenant_id",
-          :created_at
-        ]
-      end
-
       it "queries the target collection using ActiveRecord-like interface returning the collection" do
         expect {
           items_older_than_for_tenant
         }.to change { collection.where_statements }.from([]).to(expected_where_statements)
-        .and change { collection.order_by }.from([]).to(expected_order)
       end
 
       it "returns the collection" do
@@ -130,21 +122,15 @@ RSpec.describe Tartarus::ArchivableCollectionRepository do
   end
   let(:collection) do
     Class.new do
-      attr_reader :column_names, :where_statements, :order_by
+      attr_reader :column_names, :where_statements
 
       def initialize(column_names)
         @column_names = column_names
         @where_statements = []
-        @order_by = []
       end
 
       def where(*args)
         @where_statements << [*args]
-        self
-      end
-
-      def order(*args)
-        @order_by = [*args]
         self
       end
     end.new(column_names)
