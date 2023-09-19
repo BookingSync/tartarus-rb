@@ -2,6 +2,8 @@
 
 ## Master
 
+## 0.7.0
+
 - Remove explicit ordering from `Tartarus::ArchivableCollectionRepository#items_older_than`, it increased the cost of queries significantly on large tables
 
 ## 0.6.0
