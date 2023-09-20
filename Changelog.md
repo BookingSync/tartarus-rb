@@ -2,6 +2,8 @@
 
 ## Master
 
+## 0.8.0
+
 - Remove explicit ordering from both `Tartarus::ArchivableCollectionRepository#items_older_than` and `Tartarus::ArchivableCollectionRepository#items_older_than_for_tenant`
 
 ## 0.7.0
