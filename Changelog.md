@@ -2,6 +2,9 @@
 
 ## Master
 
+- Enforce sidekiq-cron of at least 2.3 and sidekiq of at least 6.5
+- Move CI to Github Actions
+
 ## 0.8.0
 
 - Remove explicit ordering from both `Tartarus::ArchivableCollectionRepository#items_older_than` and `Tartarus::ArchivableCollectionRepository#items_older_than_for_tenant`

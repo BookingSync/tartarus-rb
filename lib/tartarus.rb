@@ -19,7 +19,7 @@ require "tartarus/registry"
 require "tartarus/repository"
 require "tartarus/schedule_archiving_model"
 require "tartarus/remote_storage"
-require "sidekiq/cron/job"
+require "sidekiq-cron"
 require "sidekiq"
 
 class Tartarus

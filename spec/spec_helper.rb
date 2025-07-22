@@ -28,12 +28,26 @@ RSpec.configure do |config|
   end
 
   database_name = "tartarus-rb"
-  ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
+  connection_options = {
+    adapter: "postgresql",
+    database: database_name,
+    host: ENV.fetch("DATABASE_HOST", "localhost"),
+    port: ENV.fetch("DATABASE_PORT", 5432).to_i,
+    username: ENV.fetch("DATABASE_USER", "postgres"),
+    password: ENV.fetch("DATABASE_PASS", "password"),
+  }
   begin
-    database = ActiveRecord::Base.connection
+    ActiveRecord::Base.establish_connection(**connection_options)
+    database = if ActiveRecord::Base.connection.database_exists?
+      ActiveRecord::Base.connection
+    else
+      ActiveRecord::Base.connection.create_database(database_name)
+      ActiveRecord::Base.connection
+    end
   rescue ActiveRecord::NoDatabaseError
-    ActiveRecord::Base.establish_connection(adapter: "postgresql").connection.create_database(database_name)
-    ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
+    ActiveRecord::Base.establish_connection(**connection_options.except(:database))
+      .connection.create_database(database_name)
+    ActiveRecord::Base.establish_connection(**connection_options)
     database = ActiveRecord::Base.connection
   end
 

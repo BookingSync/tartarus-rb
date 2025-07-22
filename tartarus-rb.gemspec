@@ -27,8 +27,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "sidekiq", ">= 5"
-  spec.add_dependency "sidekiq-cron", "~> 1"
+  spec.add_dependency "sidekiq", ">= 6.5"
+  spec.add_dependency "sidekiq-cron", ">= 2.3", "< 3"
 
 
   spec.add_development_dependency "rake", "~> 13.0"
@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-sidekiq"
   spec.add_development_dependency "aws-sdk-glacier"
 
-  spec.add_development_dependency "activerecord", "~> 6"
+  spec.add_development_dependency "activerecord", ">= 6"
   spec.add_development_dependency "pg"
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock"
