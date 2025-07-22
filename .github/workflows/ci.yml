@@ -17,7 +17,7 @@ jobs:
       AWS_KEY: secretkey
       AWS_SECRET: secret
       AWS_REGION: "us-east-2"
-      VAULT_NAMEL vaultname
+      VAULT_NAME: vaultname
     services:
       postgres:
         image: postgres:17
