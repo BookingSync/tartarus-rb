@@ -2,6 +2,13 @@
 
 ## Master
 
+## 0.9.0
+
+- Require sidekiq-cron >= 2 (Sidekiq 8 compatibility)
+- Require Ruby >= 3.2, ActiveRecord >= 7.2
+- Add GitHub Actions CI
+- Fix pre-existing test failures for removed ordering behavior
+
 ## 0.8.0
 
 - Remove explicit ordering from both `Tartarus::ArchivableCollectionRepository#items_older_than` and `Tartarus::ArchivableCollectionRepository#items_older_than_for_tenant`

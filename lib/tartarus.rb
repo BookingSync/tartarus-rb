@@ -19,8 +19,8 @@ require "tartarus/registry"
 require "tartarus/repository"
 require "tartarus/schedule_archiving_model"
 require "tartarus/remote_storage"
-require "sidekiq/cron/job"
 require "sidekiq"
+require "sidekiq-cron"
 
 class Tartarus
   attr_reader :registry, :repository

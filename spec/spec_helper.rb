@@ -27,37 +27,35 @@ RSpec.configure do |config|
     Timecop.freeze(time_now) { example.run }
   end
 
-  database_name = "tartarus-rb"
-  ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
+  database_url = ENV.fetch("DATABASE_URL", "postgresql://localhost/tartarus-rb")
+  ActiveRecord::Base.establish_connection(database_url)
   begin
-    database = ActiveRecord::Base.connection
+    ActiveRecord::Base.connection.verify!
   rescue ActiveRecord::NoDatabaseError
-    ActiveRecord::Base.establish_connection(adapter: "postgresql").connection.create_database(database_name)
-    ActiveRecord::Base.establish_connection(adapter: "postgresql", database: database_name)
-    database = ActiveRecord::Base.connection
+    ActiveRecord::Base.establish_connection(database_url.sub(/\/[^\/]+$/, "/postgres"))
+    ActiveRecord::Base.connection.create_database("tartarus-rb")
+    ActiveRecord::Base.establish_connection(database_url)
   end
 
-  database.drop_table(:users) if database.table_exists?(:users)
-  database.drop_table(:partitions) if database.table_exists?(:partitions)
-  database.drop_table(:archive_registries) if database.table_exists?(:archive_registries)
+  ActiveRecord::Schema.define do
+    create_table :users, force: true do |t|
+      t.datetime :created_at, null: false
+      t.string :partition_name, null: false
+    end
 
-  database.create_table(:users) do |t|
-    t.datetime :created_at, null: false
-    t.string :partition_name, null: false
-  end
+    create_table :partitions, force: true do |t|
+      t.string :name, null: false
+    end
 
-  database.create_table(:partitions) do |t|
-    t.string :name, null: false
-  end
-
-  database.create_table(:archive_registries) do |t|
-    t.text :glacier_location, null: false
-    t.text :glacier_checksum, null: false
-    t.text :glacier_archive_id, null: false
-    t.string :archivable_model, null: false
-    t.string :tenant_id_field
-    t.string :tenant_id
-    t.datetime :completed_at, null: false
+    create_table :archive_registries, force: true do |t|
+      t.text :glacier_location, null: false
+      t.text :glacier_checksum, null: false
+      t.text :glacier_archive_id, null: false
+      t.string :archivable_model, null: false
+      t.string :tenant_id_field
+      t.string :tenant_id
+      t.datetime :completed_at, null: false
+    end
   end
 
   class User < ActiveRecord::Base

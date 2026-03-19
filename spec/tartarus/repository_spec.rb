@@ -23,17 +23,22 @@ RSpec.describe Tartarus::Repository do
         let(:created_job) { Sidekiq::Cron::Job.find("TARTARUS_Model") }
         let(:expected_hash) do
           {
-            active_job: false,
+            active_job: "0",
             args: "[\"Model\"]",
             cron: "* * * * *",
+            date_as_argument: "0",
             description: "[TARTARUS] Archiving Job for model: Model",
             klass: "Tartarus::Sidekiq::ScheduleArchivingModelJob",
             last_enqueue_time: nil,
             message: "{\"retry\":true,\"queue\":\"default\",\"class\":\"Tartarus::Sidekiq::ScheduleArchivingModelJob\",\"args\":[\"Model\"]}",
             name: "TARTARUS_Model",
+            namespace: "default",
             queue_name_delimiter: "",
             queue_name_prefix: "",
+            retry: "true",
+            source: "dynamic",
             status: "enabled",
+            symbolize_args: "0",
           }
         end
 
