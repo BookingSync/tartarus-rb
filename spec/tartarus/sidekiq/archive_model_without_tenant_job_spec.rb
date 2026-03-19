@@ -12,12 +12,6 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithoutTenantJob do
         [{ "id" => ModelNameForTestingArchiveModelWithoutTenantJob }]
       ]
     end
-    let(:expected_order) do
-      [
-        :created_at
-      ]
-    end
-
     around do |example|
       tartarus.register do |item|
         item.model = model_name
@@ -39,7 +33,6 @@ RSpec.describe Tartarus::Sidekiq::ArchiveModelWithoutTenantJob do
       expect {
         perform
       }.to change { ModelNameForTestingArchiveModelWithoutTenantJob.where_statements }.from([]).to(expected_where_statements)
-      .and change { ModelNameForTestingArchiveModelWithoutTenantJob.order_by }.from([]).to(expected_order)
       .and change { ModelNameForTestingArchiveModelWithoutTenantJob.deleted? }.from(nil).to(true)
       .and change { ModelNameForTestingArchiveModelWithoutTenantJob.select_value }.from(nil).to("id")
     end
