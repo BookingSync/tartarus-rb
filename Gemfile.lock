@@ -3,7 +3,7 @@ PATH
   specs:
     tartarus-rb (0.9.0)
       sidekiq (>= 5)
-      sidekiq-cron (>= 2)
+      sidekiq-cron (>= 1)
 
 GEM
   remote: https://rubygems.org/
