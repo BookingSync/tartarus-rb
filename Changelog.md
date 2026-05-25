@@ -2,6 +2,8 @@
 
 ## Master
 
+- Sync `Gemfile.lock` with the widened `sidekiq-cron >= 1` constraint in the gemspec to fix frozen-mode `bundle install` on CI
+
 ## 0.9.0
 
 - Require sidekiq-cron >= 2 (Sidekiq 8 compatibility)
